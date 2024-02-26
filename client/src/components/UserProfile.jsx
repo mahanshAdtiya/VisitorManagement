@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
 import { Button } from ".";
 import { userProfileData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
+
+import axios from "../services/api";
+import request from "../services/requests";
+
 import avatar from "../data/avatar.jpg";
 
 const UserProfile = () => {
-  const { currentColor, logout } = useStateContext();
+  const [userData, setUserData] = useState({
+    name: "",
+    emailId: "",
+    userType: "",
+  });
+  const { currentColor, logout, handleClick } = useStateContext();
+
+  useEffect(() => {
+    const getUserType = async () => {
+      try {
+        const response = await axios.get(request.getusertype, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+        const { name, emailId,userType } = response.data;
+        setUserData({ name,emailId,userType });
+      } catch (error) {
+        console.error("Error fetching user type:", error);
+      }
+    };
+    getUserType();
+  }, []);
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -19,6 +45,7 @@ const UserProfile = () => {
           bgHoverColor="light-gray"
           size="2xl"
           borderRadius="50%"
+          customFunc={() => handleClick("userProfile")}
         />
       </div>
       <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
@@ -30,12 +57,12 @@ const UserProfile = () => {
         <div>
           <p className="font-semibold text-xl dark:text-gray-200">
             {" "}
-            Mahansh Aditya{" "}
+            {userData.name}{" "}
           </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400"> Student </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400 capitalize">{userData.userType}</p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400">
             {" "}
-            mahansh21334@iiitd.ac.in{" "}
+            {userData.emailId}{" "}
           </p>
         </div>
       </div>
