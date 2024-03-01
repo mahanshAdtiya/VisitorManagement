@@ -66,14 +66,14 @@ const HomeScreen = () => {
             <p className="text-4xl">4</p>
           </div>
         </div>
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <Button
             color="white"
             bgColor={currentColor}
             text="New Meeting"
             borderRadius="10px"
           />
-        </div>
+        </div> */}
       </div>
       <div className="flex m-3 flex-wrap justify-center gap-5 items-center">
         {earningData.map((item) => (

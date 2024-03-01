@@ -17,10 +17,11 @@ const Button = ({
     <button
       type="button"
       style={{ backgroundColor: bgColor, color, borderRadius }}
-      className={`text-${size} p-2 w-${width} hover:drop-shadow-xl hover:bg-${bgHoverColor}`}
+      className={`flex items-center justify-center gap-2 text-${size} p-2 w-${width} hover:drop-shadow-xl hover:bg-${bgHoverColor}`}
       onClick={handleClick}
     >
-      {icon} {text}
+      {icon && React.cloneElement(icon, { size: "2em" })}
+      <span>{text}</span>
     </button>
   );
 };

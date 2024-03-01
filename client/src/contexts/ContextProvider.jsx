@@ -1,5 +1,8 @@
 import React, { useEffect, createContext, useContext, useState } from "react";
 
+import axios from "../services/api";
+import request from "../services/requests";
+
 const StateContext = createContext();
 
 const initialState = {
@@ -17,12 +20,33 @@ export const ContextProvider = ({ children }) => {
   const [currentMode, setCurrentMode] = useState("Light");
   const [themeSettings, setThemeSettings] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({
+    name: "",
+    emailId: "",
+    userType: "",
+  });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          setIsLoggedIn(true);
+          const response = await axios.get(request.getusertype, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+          const { name, emailId, userType } = response.data;
+          console.log(response.data);
+          setUserData({ name, emailId, userType });
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const setMode = (e) => {
@@ -52,6 +76,13 @@ export const ContextProvider = ({ children }) => {
     setIsLoggedIn(status);
   };
 
+  const setUserDataState = (details) => {
+    setUserData((prevDetails) => ({
+      ...prevDetails,
+      ...details,
+    }));
+  };
+
   return (
     <StateContext.Provider
       value={{
@@ -62,6 +93,7 @@ export const ContextProvider = ({ children }) => {
         currentMode,
         themeSettings,
         isLoggedIn,
+        userData, 
         setActiveMenu,
         setIsClicked,
         handleClick,
@@ -73,6 +105,7 @@ export const ContextProvider = ({ children }) => {
         setColor,
         logout,
         updateAuthStatus,
+        setUserData: setUserDataState,
       }}
     >
       {children}

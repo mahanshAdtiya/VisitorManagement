@@ -10,6 +10,7 @@ import {
   Calendar,
   AcceptedMeetings,
   MeetingRequests,
+  Form,
   LogIn,
   SignIn,
   Error,
@@ -102,6 +103,8 @@ const App = () => {
               <Route path="/acceptedmeetings" element={<AcceptedMeetings />} />
               <Route path="/meetingrequests" element={<MeetingRequests />} />
               <Route path="/calendar" element={<Calendar />} />
+
+              <Route path="/form" element={<Form />} />
 
               <Route path="*" element={<Error />} />
             </Routes>

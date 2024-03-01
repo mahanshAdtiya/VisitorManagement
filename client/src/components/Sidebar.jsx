@@ -1,13 +1,18 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
+import { CiSquarePlus } from "react-icons/ci";
 
 import { links } from "../data/dummy";
+import { Button } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize, currentColor } = useStateContext();
+  const { activeMenu, setActiveMenu, screenSize, currentColor } =
+    useStateContext();
+
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
       setActiveMenu(false);
@@ -20,7 +25,11 @@ const Sidebar = () => {
     "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2";
 
   return (
-    <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
+    <div
+      className={`ml-3 h-screen overflow-auto pb-10 ${
+        screenSize <= 900 ? "md:overflow-hidden" : "md:overflow-auto"
+      }`}
+    >
       {activeMenu && (
         <>
           <div className="flex justify-between items-center">
@@ -39,14 +48,16 @@ const Sidebar = () => {
               <MdOutlineCancel />
             </button>
           </div>
-          <div className="mt-10 ">
+          <div className="mt-10">
             {links.map((item) => (
               <div key={item.title}>
                 <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
                   {item.title}
                 </p>
                 {item.links.map((link) => {
-                  const toPath = `/${link.name.replace(/\s+/g, '').toLowerCase()}`;
+                  const toPath = `/${link.name
+                    .replace(/\s+/g, "")
+                    .toLowerCase()}`;
                   return (
                     <NavLink
                       to={toPath}
@@ -66,6 +77,18 @@ const Sidebar = () => {
                 })}
               </div>
             ))}
+          </div>
+          <div className="absolute bottom-10 w-full">
+            <div className="pr-6">
+              <Button
+                color="white"
+                bgColor={currentColor}
+                text="New Meeting"
+                width="full"
+                borderRadius="10px"
+                icon={<CiSquarePlus />}
+              />
+            </div>
           </div>
         </>
       )}

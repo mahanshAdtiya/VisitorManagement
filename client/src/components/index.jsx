@@ -7,3 +7,6 @@ export { default as Chat } from './Chat';
 export { default as Notification } from './Notification';
 export { default as UserProfile } from './UserProfile';
 export { default as Header } from './Header';
+export { default as StudentForm} from "./other/StudentForm";
+export { default as FacultyForm } from "./other/FacultyForm";
+export { default as VisitorForm } from "./other/VisitorForm";

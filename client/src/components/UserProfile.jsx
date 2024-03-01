@@ -1,39 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
 import { Button } from ".";
 import { userProfileData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
-import axios from "../services/api";
-import request from "../services/requests";
-
 import avatar from "../data/avatar.jpg";
 
 const UserProfile = () => {
-  const [userData, setUserData] = useState({
-    name: "",
-    emailId: "",
-    userType: "",
-  });
-  const { currentColor, logout, handleClick } = useStateContext();
-
-  useEffect(() => {
-    const getUserType = async () => {
-      try {
-        const response = await axios.get(request.getusertype, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
-        const { name, emailId,userType } = response.data;
-        setUserData({ name,emailId,userType });
-      } catch (error) {
-        console.error("Error fetching user type:", error);
-      }
-    };
-    getUserType();
-  }, []);
+  const { currentColor, logout, handleClick, userData } = useStateContext();
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -59,7 +34,9 @@ const UserProfile = () => {
             {" "}
             {userData.name}{" "}
           </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400 capitalize">{userData.userType}</p>
+          <p className="text-gray-500 text-sm dark:text-gray-400 capitalize">
+            {userData.userType}
+          </p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400">
             {" "}
             {userData.emailId}{" "}
@@ -68,8 +45,9 @@ const UserProfile = () => {
       </div>
       <div>
         {userProfileData.map((item, index) => (
-          <div
+          <a
             key={index}
+            href={item.link}
             className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]"
           >
             <button
@@ -87,7 +65,7 @@ const UserProfile = () => {
                 {item.desc}{" "}
               </p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
       <div className="mt-5">

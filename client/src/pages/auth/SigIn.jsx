@@ -61,7 +61,7 @@ function SignIn() {
 
       if (response.status === 200) {
         console.log("Signup successful!");
-        navigate("/login");
+        navigate("/");
       } else {
         console.error("Signup failed:", response.data.message);
       }
