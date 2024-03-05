@@ -38,7 +38,6 @@ export const ContextProvider = ({ children }) => {
             },
           });
           const { name, emailId, userType } = response.data;
-          console.log(response.data);
           setUserData({ name, emailId, userType });
         }
       } catch (error) {

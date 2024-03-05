@@ -1,17 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Button = ({
-  icon,
-  bgColor,
-  color,
-  bgHoverColor,
-  size,
-  text,
-  borderRadius,
-  width,
-  customFunc,
-}) => {
-  const handleClick = customFunc || (() => {});
+const Button = ({icon,bgColor,color,bgHoverColor,size,text,borderRadius,width,customFunc,to}) => {
+  const navigate = useNavigate(); 
+  const handleClick = () => {
+    if (to) {
+      navigate(to); 
+    }
+    if (customFunc) {
+      customFunc();
+    }
+  };
 
   return (
     <button

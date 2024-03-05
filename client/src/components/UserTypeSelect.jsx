@@ -1,13 +1,14 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import React from "react";
+
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const UserTypeSelect = ({ userType, setUserType }) => {
   const handleChange = (event) => {
-    setUserType(event.target.value); 
+    setUserType(event.target.value);
   };
 
   return (
@@ -20,13 +21,13 @@ const UserTypeSelect = ({ userType, setUserType }) => {
           value={userType}
           onChange={handleChange}
         >
-          <MenuItem value="Professor">Professor</MenuItem>
-          <MenuItem value="Student">Student</MenuItem>
-          <MenuItem value="Faculty">Faculty</MenuItem>
+          <MenuItem value="student">Student</MenuItem>
+          <MenuItem value="faculty">Faculty</MenuItem>
+          <MenuItem value="visitor">Visitor</MenuItem>
         </Select>
       </FormControl>
     </Box>
   );
-}
+};
 
 export default UserTypeSelect;

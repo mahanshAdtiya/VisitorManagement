@@ -3,34 +3,15 @@ import { Routes, Route } from "react-router-dom";
 
 import { FiSettings } from "react-icons/fi";
 
-import { Navbar, Sidebar, ThemeSettings } from "./components";
-import {
-  HomeScreen,
-  AllMeetings,
-  Calendar,
-  AcceptedMeetings,
-  MeetingRequests,
-  Form,
-  LogIn,
-  SignIn,
-  Error,
-} from "./pages";
+import { Navbar, Sidebar, ThemeSettings, NewMeeting } from "./components";
+import {HomeScreen,AcceptedRequests,MeetingRequests,Calendar,Form,LogIn,SignIn,Error} from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
 
 import "./App.css";
 
 const App = () => {
-  const {
-    setCurrentColor,
-    setCurrentMode,
-    currentMode,
-    activeMenu,
-    currentColor,
-    themeSettings,
-    setThemeSettings,
-    isLoggedIn,
-  } = useStateContext();
+  const {setCurrentColor,setCurrentMode,currentMode,activeMenu,currentColor,themeSettings,setThemeSettings,isLoggedIn} = useStateContext();
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem("colorMode");
@@ -65,15 +46,6 @@ const App = () => {
             <FiSettings />
           </button>
         </div>
-        {/* {activeMenu ? (
-          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
-            <Sidebar />
-          </div>
-        ) : (
-          <div className="w-0 dark:bg-secondary-dark-bg">
-            <Sidebar />
-          </div>
-        )} */}
         <div
           className={`dark:bg-secondary-dark-bg ${
             activeMenu ? "w-72 fixed sidebar bg-white" : "w-0"
@@ -98,12 +70,13 @@ const App = () => {
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/homescreen" element={<HomeScreen />} />
-
-              <Route path="/allmeetings" element={<AllMeetings />} />
-              <Route path="/acceptedmeetings" element={<AcceptedMeetings />} />
+              
+              <Route path="/acceptedrequests" element={<AcceptedRequests />} />
               <Route path="/meetingrequests" element={<MeetingRequests />} />
+
               <Route path="/calendar" element={<Calendar />} />
 
+              <Route path="newmeeting" element={<NewMeeting />} />
               <Route path="/form" element={<Form />} />
 
               <Route path="*" element={<Error />} />

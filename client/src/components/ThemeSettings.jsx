@@ -1,8 +1,9 @@
 import React from "react";
+
 import { MdOutlineCancel } from "react-icons/md";
 import { BsCheck } from "react-icons/bs";
 
-import { themeColors } from "../data/dummy";
+import { themeColors } from "../data/index";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const ThemeSettings = () => {

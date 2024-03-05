@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState }from "react";
 import { useNavigate } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -37,7 +36,7 @@ function SignIn() {
   const [name, setName] = useState("");
   const [file, setFile] = useState(null);
   const [userType, setUserType] = useState("");
-  const [otp, setOtp] = useState(""); // State for OTP input
+  const [otp, setOtp] = useState(""); 
 
   const navigate = useNavigate();
 
@@ -215,7 +214,7 @@ function SignIn() {
                     href="/"
                     className="text-blue-400 font-semibold text-lg ml-1 hover:underline cursor-pointer"
                   >
-                    Sign
+                    LogIn
                   </a>
                 </p>
               </Box>

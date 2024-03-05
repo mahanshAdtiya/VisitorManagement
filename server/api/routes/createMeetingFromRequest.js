@@ -14,9 +14,9 @@ router.post("/", tokenVerification, async (req, res) => {
     const hostID = req.user.id;
     // const attendantName = req.body.attendantName;
     const status = req.body.status;
-    const meetingDate = req.body.meetingDate;
-    const meetingTime = req.body.meetingTime;
-    const meetingLocation = req.body.meetingLocation;
+    const meetingDate = req.body.date;
+    const meetingTime = req.body.time;
+    const meetingLocation = req.body.location;
     const meetingDescription = req.body.meetingDescription;
     const attendantID = req.body.attendantID;
     const attendantName = req.body.attendantName;
@@ -29,7 +29,7 @@ router.post("/", tokenVerification, async (req, res) => {
     console.log("Attendant ID:", attendantID);
     console.log("Attendant Name:", attendantName);
     console.log("Insert Query:", insertQuery);
-
+    
     const dbInsertResult = await db.pool
       .promise()
       .execute(insertQuery, [

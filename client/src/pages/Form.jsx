@@ -1,6 +1,8 @@
 import React from "react";
+
 import { Header } from "../components";
 import { StudentForm, FacultyForm, VisitorForm } from "../components";
+
 import { useStateContext } from "../contexts/ContextProvider";
 
 function Form() {
