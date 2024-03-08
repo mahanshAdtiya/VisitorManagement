@@ -11,7 +11,6 @@ function Form() {
   let formToRender;
 
   if (userData.userType === "student") {
-    console.log("loda lele loda");
     formToRender = <StudentForm />;
   } else if (userData.userType === "faculty") {
     formToRender = <FacultyForm />;
