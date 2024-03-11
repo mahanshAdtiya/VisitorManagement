@@ -5,11 +5,13 @@ import { MdOutlineSupervisorAccount } from "react-icons/md";
 
 import { Header } from "../components";
 
+import { useStateContext } from "../contexts/ContextProvider";
 import axios from "../services/api";
 import request from "../services/requests";
 
 function AcceptedRequests() {
   const [meetings, setMeetings] = useState([]);
+  const { userData } = useStateContext();
 
   useEffect(() => {
     const fetchAcceptedMeetings = async () => {
@@ -21,6 +23,7 @@ function AcceptedRequests() {
         });
 
         if (response.status === 200) {
+          console.log(response.data.data);
           setMeetings(response.data.data);
         } else {
           console.error(
@@ -68,7 +71,9 @@ function AcceptedRequests() {
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+              >
                 <button
                   type="button"
                   style={{
@@ -81,8 +86,19 @@ function AcceptedRequests() {
                 >
                   <MdOutlineSupervisorAccount />
                 </button>
-                <div style={{ display: "flex", flexDirection: "column", marginLeft: "0.5rem" }}>
-                  <Typography variant="h6">{meeting.AttendantName}</Typography>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginLeft: "0.5rem",
+                  }}
+                >
+                  {/* <Typography variant="h6">{meeting.AttendantName}</Typography> */}
+                  <Typography variant="h6">
+                    {userData.userType === "student"
+                      ? "Sujay Deb"
+                      : meeting.AttendantName}
+                  </Typography>
                   <div>
                     <Typography variant="body2" color="textSecondary">
                       {formatDate(meeting.MeetingDate)}

@@ -11,11 +11,11 @@ router.get("/", tokenVerification, async (req, res) => {
     const hostId = req.user.id;
 
     const selectQuery = `
-            SELECT * FROM meetings
-            WHERE Host = ? AND status = 'accepted'
-        `;
-    const [meetings] = await db.pool.promise().execute(selectQuery, [hostId]);
-
+        SELECT * FROM meetings
+        WHERE (Host = ? OR Attendant = ?) AND status = 'accepted'
+    `;
+    
+    const [meetings] = await db.pool.promise().execute(selectQuery, [hostId, hostId]);
     res.status(200).json({
       status: "success",
       data: meetings,

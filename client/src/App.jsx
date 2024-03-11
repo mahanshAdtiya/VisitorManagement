@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
+import LinearProgress from '@mui/material/LinearProgress';
 
 import { FiSettings } from "react-icons/fi";
 
 import { Navbar, Sidebar, ThemeSettings, NewMeeting } from "./components";
-import {HomeScreen,AcceptedRequests,MeetingRequests,Calendar,Form,LogIn,SignIn,Error} from "./pages";
+import { HomeScreen, AcceptedRequests, MeetingRequests, Calendar, Form, LogIn, SignIn, Error } from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
 
 import "./App.css";
 
 const App = () => {
-  const {setCurrentColor,setCurrentMode,currentMode,activeMenu,currentColor,themeSettings,setThemeSettings,isLoggedIn} = useStateContext();
+  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings, isLoggedIn } = useStateContext();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem("colorMode");
@@ -20,7 +23,14 @@ const App = () => {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
     }
+    
+    setIsLoading(false); 
   }, []);
+
+  if (isLoading) {
+    return <LinearProgress />;
+  }
+
 
   if (!isLoggedIn) {
     return (

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Button } from ".";
-import { chatData } from "../data/index";
+import { chatData } from "../data";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Notification = () => {

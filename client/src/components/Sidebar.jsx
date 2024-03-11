@@ -5,7 +5,7 @@ import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { CiSquarePlus } from "react-icons/ci";
 
-import { links } from "../data/index";
+import { links } from "../data";
 import { Button } from "../components";
 
 import { useStateContext } from "../contexts/ContextProvider";

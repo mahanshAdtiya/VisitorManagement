@@ -25,9 +25,13 @@ export const links = [
         title: "Meeting",
         links: [
           {
-            name: "calendar",
-            icon: <AiOutlineCalendar />,
+            name: "Accepted Requests",
+            icon: <IoMdContacts />,
           },
+          // {
+          //   name: "calendar",
+          //   icon: <AiOutlineCalendar />,
+          // },
         ],
       },
     ],
@@ -55,10 +59,10 @@ export const links = [
             name: "Accepted Requests",
             icon: <IoMdContacts />,
           },
-          {
-            name: "calendar",
-            icon: <AiOutlineCalendar />,
-          },
+          // {
+          //   name: "calendar",
+          //   icon: <AiOutlineCalendar />,
+          // },
         ],
       },
     ],
@@ -79,9 +83,13 @@ export const links = [
         title: "Meeting",
         links: [
           {
-            name: "calendar",
-            icon: <AiOutlineCalendar />,
+            name: "Accepted Requests",
+            icon: <IoMdContacts />,
           },
+          // {
+          //   name: "calendar",
+          //   icon: <AiOutlineCalendar />,
+          // },
         ],
       },
     ],

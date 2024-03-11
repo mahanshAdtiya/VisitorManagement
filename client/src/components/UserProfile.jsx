@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Button } from ".";
-import { userProfileData } from "../data/index";
+import { userProfileData } from "../data";
 import { useStateContext } from "../contexts/ContextProvider";
 
 import avatar from "../data/avatar.jpg";

@@ -12,19 +12,13 @@ const initialState = {
   notification: false,
 };
 
-export const ContextProvider = ({ children }) => {
+export const ContextProvider = ({ children, userData, setUserData,isLoggedIn,setIsLoggedIn }) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [screenSize, setScreenSize] = useState(undefined);
   const [currentColor, setCurrentColor] = useState("#03C9D7");
   const [currentMode, setCurrentMode] = useState("Light");
   const [themeSettings, setThemeSettings] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    emailId: "",
-    userType: "",
-  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +40,7 @@ export const ContextProvider = ({ children }) => {
     };
 
     fetchData();
-  }, []);
+  }, [isLoggedIn]);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -92,7 +86,7 @@ export const ContextProvider = ({ children }) => {
         currentMode,
         themeSettings,
         isLoggedIn,
-        userData, 
+        userData,
         setActiveMenu,
         setIsClicked,
         handleClick,
