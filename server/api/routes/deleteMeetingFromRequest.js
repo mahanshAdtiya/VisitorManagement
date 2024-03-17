@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
 router.use(cookieParser());
@@ -12,20 +11,19 @@ const tokenVerification = require("../../middleware/verify");
 
 router.post("/", tokenVerification, async (req, res) => {
   try {
-    const userID = req.user.id;
-    const profession = req.body.profession;
-    const address = req.body.address;
-    const age = req.body.age;
+    const meetingId = req.body.meetingId;
 
-    const insertQuery = `INSERT INTO Visitors (UserID, Profession, Address, Age) VALUES (?, ?, ?, ?)`;
-    const dbInsertResult = await db.pool
+    // console.log("Meeting ID:", meetingId);
+
+    const deleteMeetingRequestQuery = `DELETE FROM meetingRequests WHERE id = ?`;
+    const dbDeleteResult = await db.pool
       .promise()
-      .execute(insertQuery, [userID, profession, address, age]);
+      .execute(deleteMeetingRequestQuery, [meetingId]);
 
-    console.log("Values Inserted:", dbInsertResult);
+    console.log("Meeting Request Deleted:", dbDeleteResult);
     res.status(200).json({
       status: "success",
-      message: "Values Inserted",
+      message: "Meeting request deleted successfully",
     });
   } catch (error) {
     console.error("Error:", error);

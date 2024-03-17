@@ -17,11 +17,12 @@ router.post("/", tokenVerification, async (req, res) => {
     const branchOfStudy = req.body.branchOfStudy;
     const yearOfStudy = req.body.yearOfStudy;
     const address = req.body.address;
+    const rollNumber = req.body.rollNumber;
 
-    const insertQuery = `INSERT INTO Students (UserID, BranchOfStudy, YearOfStudy, Address) VALUES (?, ?, ?, ?)`;
+    const insertQuery = `INSERT INTO Students (UserID, BranchOfStudy, YearOfStudy, Address, rollNumber) VALUES (?, ?, ?, ?,?)`;
     const dbInsertResult = await db.pool
       .promise()
-      .execute(insertQuery, [userID, branchOfStudy, yearOfStudy, address]);
+      .execute(insertQuery, [userID, branchOfStudy, yearOfStudy, address,rollNumber]);
 
     console.log("Values Inserted:", dbInsertResult);
     res.status(200).json({

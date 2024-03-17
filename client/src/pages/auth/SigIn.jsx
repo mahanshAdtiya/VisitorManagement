@@ -1,4 +1,4 @@
-import React, { useState }from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -36,9 +37,35 @@ function SignIn() {
   const [name, setName] = useState("");
   const [file, setFile] = useState(null);
   const [userType, setUserType] = useState("");
-  const [otp, setOtp] = useState(""); 
+  const [otp, setOtp] = useState("");
+  const [myotp, setMyOtp] = useState("");
+  const [selectedFileName, setSelectedFileName] = useState("");
 
   const navigate = useNavigate();
+
+  async function sendOtp() {
+    let datas = JSON.stringify({
+      email: email,
+    });
+
+    try {
+      const response = await axios.post(request.otp, datas, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = response.data;
+      console.log(data.otp);
+      setOtp(data.otp);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
+  const handleSendOTP = async (e) => {
+    e.preventDefault();
+    sendOtp();
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -58,7 +85,7 @@ function SignIn() {
         },
       });
 
-      if (response.status === 200) {
+      if (response.status === 200 && myotp == otp) {
         console.log("Signup successful!");
         navigate("/");
       } else {
@@ -68,14 +95,6 @@ function SignIn() {
       console.error("Signup failed:", error);
     }
   };
-  // const handleSendOTP = () => {
-  //   console.log("OTP sent");
-  // };
-
-  // // Function to handle OTP input
-  // const handleOTPInputChange = (e) => {
-  //   setOtp(e.target.value);
-  // };
 
   return (
     <div className="flex justify-center items-center h-screen bg-auth_back">
@@ -84,13 +103,7 @@ function SignIn() {
         <ThemeProvider theme={defaultTheme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
+            <Box className="flex flex-col items-center">
               <Box
                 component="form"
                 onSubmit={handleSubmit}
@@ -156,8 +169,8 @@ function SignIn() {
                   />
                 </div>
 
-                {/* <Button
-                  variant="outlined"
+                <Button
+                  variant="contained"
                   color="primary"
                   onClick={handleSendOTP}
                   fullWidth
@@ -173,16 +186,9 @@ function SignIn() {
                   label="OTP"
                   name="otp"
                   autoFocus
-                  value={otp}
-                  onChange={handleOTPInputChange}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      // Handle submission when Enter is pressed
-                      console.log("OTP Entered:", otp);
-                      // Add further processing logic here
-                    }
-                  }}
-                /> */}
+                  value={myotp}
+                  onChange={(e) => setMyOtp(e.target.value)}
+                />
 
                 <Button
                   component="label"
@@ -196,9 +202,17 @@ function SignIn() {
                   Upload file
                   <VisuallyHiddenInput
                     type="file"
-                    onChange={(e) => setFile(e.target.files[0])}
+                    onChange={(e) => {
+                      setFile(e.target.files[0]);
+                      setSelectedFileName(e.target.files[0].name);
+                    }}
                   />
                 </Button>
+                {selectedFileName && (
+                  <Typography variant="body1" gutterBottom>
+                    Selected file: {selectedFileName}
+                  </Typography>
+                )}
                 <Button
                   type="submit"
                   variant="contained"

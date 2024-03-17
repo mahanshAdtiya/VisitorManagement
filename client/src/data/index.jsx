@@ -1,10 +1,10 @@
 import React from "react";
 
 import { AiOutlineCalendar } from "react-icons/ai";
-import { FiShoppingBag } from "react-icons/fi";
-import { BsShield } from "react-icons/bs";
-import { IoMdContacts } from "react-icons/io";
-import { RiContactsLine } from "react-icons/ri";
+import HomeIcon from "@mui/icons-material/Home";
+import GroupsIcon from "@mui/icons-material/Groups";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 import avatar from "./avatar.jpg";
 
@@ -17,23 +17,27 @@ export const links = [
         links: [
           {
             name: "homescreen",
-            icon: <FiShoppingBag />,
+            icon: <HomeIcon />,
           },
-        ],
-      },
-      {
-        title: "Meeting",
-        links: [
           {
             name: "Accepted Requests",
-            icon: <IoMdContacts />,
+            icon: <GroupsIcon />,
           },
-          // {
-          //   name: "calendar",
-          //   icon: <AiOutlineCalendar />,
-          // },
         ],
       },
+      // {
+      //   title: "Meeting",
+      //   links: [
+      //     {
+      //       name: "Accepted Requests",
+      //       icon: <GroupsIcon />,
+      //     },
+      //     {
+      //       name: "calendar",
+      //       icon: <AiOutlineCalendar />,
+      //     },
+      //   ],
+      // },
     ],
   },
   {
@@ -44,54 +48,66 @@ export const links = [
         links: [
           {
             name: "homescreen",
-            icon: <FiShoppingBag />,
+            icon: <HomeIcon />,
           },
-        ],
-      },
-      {
-        title: "Meeting",
-        links: [
           {
             name: "Meeting Requests",
-            icon: <RiContactsLine />,
+            icon: <PersonSearchIcon />,
           },
           {
             name: "Accepted Requests",
-            icon: <IoMdContacts />,
+            icon: <GroupsIcon />,
           },
-          // {
-          //   name: "calendar",
-          //   icon: <AiOutlineCalendar />,
-          // },
         ],
       },
+      // {
+      //   title: "Meeting",
+      //   links: [
+      //     {
+      //       name: "Meeting Requests",
+      //       icon: <PersonSearchIcon />,
+      //     },
+      //     {
+      //       name: "Accepted Requests",
+      //       icon: <GroupsIcon />,
+      //     },
+      //     {
+      //       name: "calendar",
+      //       icon: <AiOutlineCalendar />,
+      //     },
+      //   ],
+      // },
     ],
   },
   {
-    title: "Visitor",
+    title: "visitor",
     sections: [
       {
         title: "Dashboard",
         links: [
           {
             name: "homescreen",
-            icon: <FiShoppingBag />,
+            icon: <HomeIcon />,
           },
-        ],
-      },
-      {
-        title: "Meeting",
-        links: [
           {
             name: "Accepted Requests",
-            icon: <IoMdContacts />,
+            icon: <GroupsIcon />,
           },
-          // {
-          //   name: "calendar",
-          //   icon: <AiOutlineCalendar />,
-          // },
         ],
       },
+      // {
+      //   title: "Meeting",
+      //   links: [
+      //     {
+      //       name: "Accepted Requests",
+      //       icon: <GroupsIcon />,
+      //     },
+      //     // {
+      //     //   name: "calendar",
+      //     //   icon: <AiOutlineCalendar />,
+      //     // },
+      //   ],
+      // },
     ],
   },
 ];
@@ -125,9 +141,9 @@ export const themeColors = [
 
 export const userProfileData = [
   {
-    icon: <BsShield />,
-    title: "Profile",
-    desc: "Complete Profile",
+    icon: <ManageAccountsIcon />,
+    title: "Update Profile",
+    desc: "Edit your profile",
     iconColor: "#03C9D7",
     iconBg: "#E5FAFB",
     link: "/form",

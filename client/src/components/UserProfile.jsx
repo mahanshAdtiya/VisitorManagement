@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { Button } from ".";
 import { userProfileData } from "../data";
 import { useStateContext } from "../contexts/ContextProvider";
 
-import avatar from "../data/avatar.jpg";
-
 const UserProfile = () => {
   const { currentColor, logout, userData } = useStateContext();
+  const navigate = useNavigate();
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -18,7 +17,7 @@ const UserProfile = () => {
       <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
         <img
           className="rounded-full h-24 w-24"
-          src={avatar}
+          src={userData.imageUrl}
           alt="user-profile"
         />
         <div>
@@ -31,7 +30,7 @@ const UserProfile = () => {
           </p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400">
             {" "}
-            {userData.emailId}{" "}
+            {userData.email}{" "}
           </p>
         </div>
       </div>
@@ -40,20 +39,24 @@ const UserProfile = () => {
           <Link
             key={index}
             to={item.link}
-            className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer dark:hover:bg-[#42464D]"
+            className="flex gap-4 border-b-1 border-color p-2 hover:bg-light-gray cursor-pointer dark:hover:bg-[#42464D]"
           >
             <button
               type="button"
               style={{ color: item.iconColor, backgroundColor: item.iconBg }}
-              className=" text-xl rounded-lg p-3 hover:bg-light-gray"
+              className=" text-l rounded-lg p-3 hover:bg-light-gray"
             >
               {item.icon}
             </button>
 
+            {/* <div className="flex items-center">
+              <p className="font-semibold dark:text-gray-200">{item.title}</p>
+            </div> */}
             <div>
               <p className="font-semibold dark:text-gray-200">{item.title}</p>
               <p className="text-gray-500 text-sm dark:text-gray-400">
-                {item.desc}
+                {" "}
+                {item.desc}{" "}
               </p>
             </div>
           </Link>
@@ -68,6 +71,7 @@ const UserProfile = () => {
           width="full"
           customFunc={logout}
         />
+        {navigate("/")}
       </div>
     </div>
   );

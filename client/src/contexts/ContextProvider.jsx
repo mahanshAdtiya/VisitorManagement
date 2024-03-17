@@ -12,7 +12,13 @@ const initialState = {
   notification: false,
 };
 
-export const ContextProvider = ({ children, userData, setUserData,isLoggedIn,setIsLoggedIn }) => {
+export const ContextProvider = ({
+  children,
+  userData,
+  setUserData,
+  isLoggedIn,
+  setIsLoggedIn,
+}) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [screenSize, setScreenSize] = useState(undefined);
@@ -31,8 +37,8 @@ export const ContextProvider = ({ children, userData, setUserData,isLoggedIn,set
               Authorization: "Bearer " + localStorage.getItem("token"),
             },
           });
-          const { name, emailId, userType } = response.data;
-          setUserData({ name, emailId, userType });
+          const { name, email, userType, imageUrl } = response.data.data;
+          setUserData({ name, email, userType, imageUrl });
         }
       } catch (error) {
         console.error("Error fetching user details:", error);

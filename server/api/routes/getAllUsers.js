@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
       };
 
       const command = new GetObjectCommand(getObjectParams);
-      const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+      const url = await getSignedUrl(s3, command, { expiresIn: 360000 });
       rows[i].ImageUrl = url;
     }
 

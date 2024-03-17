@@ -67,7 +67,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 
     // Hash the password using crypto module
     const hashedPassword = crypto
-      .createHash("sha256") // You can use a different algorithm based on your requirements
+      .createHash("sha256") 
       .update(password)
       .digest("hex");
 

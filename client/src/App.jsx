@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import LinearProgress from '@mui/material/LinearProgress';
+import LinearProgress from "@mui/material/LinearProgress";
 
 import { FiSettings } from "react-icons/fi";
 
-import { Navbar, Sidebar, ThemeSettings, NewMeeting } from "./components";
-import { HomeScreen, AcceptedRequests, MeetingRequests, Calendar, Form, LogIn, SignIn, Error } from "./pages";
+import {Navbar, Sidebar, ThemeSettings, NewMeeting } from "./components";
+import {HomeScreen, AcceptedRequests, MeetingRequests, Calendar, Form, LogIn, SignIn, Error} from "./pages";
+
+import { PopUp } from "./components";
 
 import { useStateContext } from "./contexts/ContextProvider";
 
 import "./App.css";
 
 const App = () => {
-  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings, isLoggedIn } = useStateContext();
+  const {setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings, isLoggedIn, userData} = useStateContext();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -23,14 +25,13 @@ const App = () => {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
     }
-    
-    setIsLoading(false); 
+
+    setIsLoading(false);
   }, []);
 
   if (isLoading) {
     return <LinearProgress />;
   }
-
 
   if (!isLoggedIn) {
     return (
@@ -80,7 +81,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/homescreen" element={<HomeScreen />} />
-              
+
               <Route path="/acceptedrequests" element={<AcceptedRequests />} />
               <Route path="/meetingrequests" element={<MeetingRequests />} />
 
@@ -92,6 +93,7 @@ const App = () => {
               <Route path="*" element={<Error />} />
             </Routes>
           </div>
+          {userData.userType === "faculty" && <PopUp />}
         </div>
       </div>
     </div>

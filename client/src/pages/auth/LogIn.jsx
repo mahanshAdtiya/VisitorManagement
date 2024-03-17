@@ -7,9 +7,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-// import { FcGoogle } from "react-icons/fc";
-// import { FaGithub } from "react-icons/fa";
-
 import axios from "../../services/api";
 import request from "../../services/requests";
 
@@ -42,7 +39,7 @@ function LogIn() {
         console.log("Login successful!");
         localStorage.setItem("token", response.data.token);
         updateAuthStatus(true);
-        navigate("/");
+        navigate("/homescreen");
       } else {
         console.error("Login Failed:", response.data.message);
       }
@@ -62,12 +59,7 @@ function LogIn() {
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
+              className="flex flex-col items-center">
               <Box
                 component="form"
                 onSubmit={handleSubmit}
@@ -104,21 +96,7 @@ function LogIn() {
                 >
                   Login
                 </button>
-                {/* <div className="flex flex-row items-center gap-4 mt-4 justify-center">
-                  <div
-                    // onClick={() => signIn('google', {callbackUrl: '/'})}
-                    className=" w-10 h-10 bg-auth_back rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition "
-                  >
-                    <FcGoogle size={30} />
-                  </div>
 
-                  <div
-                    // onClick={() => signIn('github', {callbackUrl: '/'})}
-                    className=" w-10 h-10 bg-auth_back rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition  "
-                  >
-                    <FaGithub size={30} />
-                  </div>
-                </div> */}
                 <p className="text-neutral-500 mt-4">
                   Don't have an account?
                   <a

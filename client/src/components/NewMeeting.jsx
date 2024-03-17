@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { Header } from "../components";
+import { Header, SearchBar } from "../components";
 
 import axios from "../services/api";
 import request from "../services/requests";
@@ -16,6 +16,7 @@ const defaultTheme = createTheme();
 function NewMeeting() {
   const [receiverName, setReceiverName] = useState("");
   const [meetingDescription, setMeetingDescription] = useState("");
+  const [selectedAttendant, setSelectedAttendant] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ function NewMeeting() {
       formData.append("receiverName", receiverName);
       formData.append("meetingDescription", meetingDescription);
 
-      const response = await axios.post(request.meetingRequests, formData, {
+      const response = await axios.post(request.createMeeting, formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -43,6 +44,12 @@ function NewMeeting() {
     }
   };
 
+  // Update receiverName when an attendant is selected
+  const handleSelectAttendant = (attendant) => {
+    setSelectedAttendant(attendant);
+    setReceiverName(attendant);
+  };
+
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Meeting" title="New Meeting" />
@@ -52,19 +59,17 @@ function NewMeeting() {
           <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
+              <Box className="flex flex-col items-center">
                 <Box
                   component="form"
                   onSubmit={handleSubmit}
                   noValidate
-                  sx={{ mt: 1 }}
+                  className="mt-4"
                 >
+                  <SearchBar
+                    onSelectAttendant={handleSelectAttendant} 
+                  />
+
                   <TextField
                     margin="normal"
                     required
@@ -84,7 +89,7 @@ function NewMeeting() {
                     label="Meeting Description"
                     id="meetingDescription"
                     multiline
-                    rows={4} 
+                    rows={4}
                     autoComplete="meetingDescription"
                     value={meetingDescription}
                     onChange={(e) => setMeetingDescription(e.target.value)}

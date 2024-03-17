@@ -9,6 +9,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "../../services/api";
 import request from "../../services/requests";
 
+import { useStateContext } from "../../contexts/ContextProvider";
+
 const defaultTheme = createTheme();
 
 function FacultyForm() {
@@ -17,6 +19,7 @@ function FacultyForm() {
   const [officeLocation, setOfficeLocation] = useState("");
   const [officeHoursStart, setOfficeHoursStart] = useState("");
   const [officeHoursEnd, setOfficeHoursEnd] = useState("");
+  const { setProfileUpdated } = useStateContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +41,7 @@ function FacultyForm() {
 
       if (response.status === 200) {
         alert("Values Inserted Successfully");
+        setProfileUpdated(true);
         setAcademicTitle("");
         setDepartment("");
         setOfficeLocation("");
@@ -53,7 +57,7 @@ function FacultyForm() {
   return (
     <div className="flex justify-center bg-auth_back">
       <div className="bg-auth_top rounded-lg shadow-lg px-10 py-16 mt-2 lg:w-2/5 lg:max-w-md w-full">
-        <h1 className="text-4xl font-bold">Please Update your Profile</h1>
+        <h1 className="text-4xl font-bold">Enter the following Details</h1>
         <ThemeProvider theme={defaultTheme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />

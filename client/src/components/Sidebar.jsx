@@ -1,13 +1,12 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import { SiShopware } from "react-icons/si";
-import { MdOutlineCancel } from "react-icons/md";
 import { CiSquarePlus } from "react-icons/ci";
 
 import { links } from "../data";
 import { Button } from "../components";
 
+import Logo from "/Logo.png";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
@@ -37,19 +36,20 @@ const Sidebar = () => {
         <>
           <div className="flex justify-between items-center">
             <Link
-              to="/"
+              to="/homescreen"
               onClick={handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
-              <SiShopware /> <span>Visitor Management</span>
+              <img src={Logo} alt="Logo" className="h-8 w-auto" />
+              <span>Visitor Management</span>
             </Link>
-            <button
+            {/* <button
               type="button"
               onClick={() => setActiveMenu(!activeMenu)}
               className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block"
             >
-              <MdOutlineCancel />
-            </button>
+              <CloseIcon />
+            </button> */}
           </div>
           <div className="mt-10">
             {userLinks &&

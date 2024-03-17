@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { Grid, Paper, Typography } from "@mui/material";
 import { MdOutlineSupervisorAccount } from "react-icons/md";
+import { Grid, Paper, Typography } from "@mui/material";
 
 import { Header } from "../components";
 
 import { useStateContext } from "../contexts/ContextProvider";
+
 import axios from "../services/api";
 import request from "../services/requests";
 
@@ -66,39 +67,23 @@ function AcceptedRequests() {
             <Paper
               elevation={0}
               style={{
-                padding: "1.5rem",
-                borderRadius: "1.5rem",
+                borderRadius: "1rem",
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
               }}
+              className="p-4 shadow-sm mb-6"
             >
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-              >
-                <button
-                  type="button"
-                  style={{
-                    fontSize: "2rem",
-                    borderRadius: "20%",
-                    padding: "1rem",
-                    backgroundColor: "#E5FAFB",
-                    color: "#03C9D7",
-                  }}
-                >
+              <div className="flex items-center gap-1">
+                <div className="text-3xl rounded-[20%] p-4 bg-cyan-100 text-cyan-500">
                   <MdOutlineSupervisorAccount />
-                </button>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    marginLeft: "0.5rem",
-                  }}
-                >
-                  {/* <Typography variant="h6">{meeting.AttendantName}</Typography> */}
+                </div>
+
+                <div className="flex flex-col ml-4">
                   <Typography variant="h6">
-                    {userData.userType === "student"
-                      ? "Sujay Deb"
-                      : meeting.AttendantName}
+                    {userData.userType === "faculty"
+                      ? meeting.AttendantName
+                      : meeting.HostName}
                   </Typography>
+
                   <div>
                     <Typography variant="body2" color="textSecondary">
                       {formatDate(meeting.MeetingDate)}
@@ -111,7 +96,8 @@ function AcceptedRequests() {
               </div>
               <Typography
                 variant="body1"
-                style={{ color: "rgba(0, 0, 0, 0.4)", marginTop: "1rem" }}
+                style={{ marginTop: "1rem" }}
+                className="text-gray-400 mt-4"
               >
                 {meeting.MeetingDescription}
               </Typography>

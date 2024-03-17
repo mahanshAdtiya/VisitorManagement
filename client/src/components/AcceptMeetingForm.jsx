@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {Dialog,DialogTitle,DialogContent,TextField,DialogActions,Button} from "@mui/material";
 
 import axios from "../services/api";
+import request from "../services/requests";
 
 function AcceptMeetingForm({ selectedMeeting,openDialog,setOpenDialog, setSelectedMeeting }) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
+  const navigate = useNavigate();
 
   const handleDialogClose = () => {
     setSelectedMeeting(null);
@@ -29,19 +32,10 @@ function AcceptMeetingForm({ selectedMeeting,openDialog,setOpenDialog, setSelect
         selectedMeeting.meetingDescription
       );
       formData.append("attendantName", selectedMeeting.senderName);
-
-      console.log("Meeting details submitted:", {
-        senderId: selectedMeeting.senderId,
-        status: "accepted",
-        date,
-        time,
-        location,
-        meetingDescription: selectedMeeting.meetingDescription,
-        attendantName: selectedMeeting.senderName,
-      });
+      formData.append("meetingId",selectedMeeting.id);
 
       const response = await axios.post(
-        "/createMeetingFromRequest",
+        request.createMeetingFromRequest,
         formData,
         {
           headers: {
@@ -56,6 +50,7 @@ function AcceptMeetingForm({ selectedMeeting,openDialog,setOpenDialog, setSelect
         setTime("");
         setLocation("");
         setDate("");
+        navigate("/acceptedrequests");
       }
       setSelectedMeeting(null);
     } catch (error) {

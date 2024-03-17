@@ -19,6 +19,7 @@ router.post("/", tokenVerification, async (req, res) => {
     const meetingTime = req.body.meetingTime;
     const meetingLocation = req.body.meetingLocation;
     const meetingDescription = req.body.meetingDescription;
+    const hostName = req.user.name;
     const getAttendantIDQuery = `SELECT UserID FROM Users WHERE Name = ?`;
     const dbGetAttendantIDResult = await db.pool
       .promise()
@@ -26,8 +27,8 @@ router.post("/", tokenVerification, async (req, res) => {
     const attendantID = dbGetAttendantIDResult[0][0].UserID;
 
     const insertQuery = `
-            INSERT INTO Meetings (Host, Attendant, Status, MeetingDate, MeetingTime, MeetingLocation, MeetingDescription, AttendantName)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO Meetings (Host, Attendant, Status, MeetingDate, MeetingTime, MeetingLocation, MeetingDescription, AttendantName, HostName)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)
         `;
 
     console.log("Attendant ID:", attendantID);
@@ -44,6 +45,7 @@ router.post("/", tokenVerification, async (req, res) => {
         meetingLocation,
         meetingDescription,
         attendantName,
+        hostName
       ]);
 
     console.log("Meeting Created:", dbInsertResult);

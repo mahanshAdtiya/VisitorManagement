@@ -46,7 +46,6 @@ router.post("/", async (req, res) => {
         id: user.UserID,
         username: user.Username,
         name: user.Name,
-        emailId: user.Email,
         userType: user.UserType,
       },
       process.env.JWT_SECRET

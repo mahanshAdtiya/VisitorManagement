@@ -10,3 +10,6 @@ export { default as FacultyForm } from "./other/FacultyForm";
 export { default as VisitorForm } from "./other/VisitorForm";
 export {default as NewMeeting } from "./NewMeeting";
 export {default as AcceptMeetingForm} from "./AcceptMeetingForm";
+export {default as SearchBar} from "./Search/SearchBar";
+export {default as PopUp} from "./PopUp";
+export {default as RejectMeetingFromRequest} from "./RejectMeetingFromRequest";

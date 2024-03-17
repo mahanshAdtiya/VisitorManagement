@@ -12,7 +12,7 @@ const tokenVerification = require("../../middleware/verify");
 router.post("/", tokenVerification, async (req, res) => {
   try {
     const hostID = req.user.id;
-    // const attendantName = req.body.attendantName;
+    const hostName = req.user.name;
     const status = req.body.status;
     const meetingDate = req.body.date;
     const meetingTime = req.body.time;
@@ -20,16 +20,13 @@ router.post("/", tokenVerification, async (req, res) => {
     const meetingDescription = req.body.meetingDescription;
     const attendantID = req.body.attendantID;
     const attendantName = req.body.attendantName;
+    const meetingId = req.body.meetingId;
 
     const insertQuery = `
-            INSERT INTO Meetings (Host, Attendant, Status, MeetingDate, MeetingTime, MeetingLocation, MeetingDescription, AttendantName)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO Meetings (Host, Attendant, Status, MeetingDate, MeetingTime, MeetingLocation, MeetingDescription, AttendantName, HostName)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
-    console.log("Attendant ID:", attendantID);
-    console.log("Attendant Name:", attendantName);
-    console.log("Insert Query:", insertQuery);
-    
     const dbInsertResult = await db.pool
       .promise()
       .execute(insertQuery, [
@@ -41,9 +38,16 @@ router.post("/", tokenVerification, async (req, res) => {
         meetingLocation,
         meetingDescription,
         attendantName,
+        hostName,
       ]);
 
+    const deleteMeetingRequestQuery = `DELETE FROM meetingRequests WHERE id = ?`;
+    const dbDeleteResult = await db.pool
+      .promise()
+      .execute(deleteMeetingRequestQuery, [meetingId]);
+
     console.log("Meeting Created:", dbInsertResult);
+    // console.log("Meeting Request Deleted:", dbDeleteResult);
     res.status(200).json({
       status: "success",
       message: "Meeting Created",
